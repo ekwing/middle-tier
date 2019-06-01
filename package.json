@@ -8,13 +8,12 @@
   "scripts": {
     "dev": "nodemon ./examples/index.js",
     "prod": "node ./examples/http.js",
-    "test": "node ./tests/index.js"
+    "test": "sudo siege -c 250 localhost:3000"
   },
   "dependencies": {
     "koa": "^2.7.0"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1",
-    "siege": "^0.2.0"
+    "nodemon": "^1.19.1"
   }
 }

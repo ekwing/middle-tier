@@ -1,6 +1,14 @@
-# server
+# middle-tier
 
-## cluster多进程
+NodeJS是基于Chrome浏览器的V8引擎构建的，其模型与浏览器类似，javascript运行在单个进程的单个线程上有这样的好处：
+- 状态单一
+- 没有锁
+- 不需要线程间同步
+- 减少系统上下文的切换
+- 有效提高单核CPU的使用率
+
+## NodeJS的多进程架构
+面对单进程单线程对多核使用率不高的问题，每个进程各使用一个CPU即可，以此实现多核CPU的利用。Node提供了`child_process`模块，并且也提供了`fork()`方法来实现进程的复制(只要是进程复制，都需要一定的资源和时间。
 ```javascript
 const cluster = require('cluster')
 const http = require('http')
@@ -70,5 +78,42 @@ try {
 
 `Throughput`（吞吐量），指系统在单位事件内处理请求的数量
 
+### 压力测试工具siege
+
+部分参数说明
+```bash
+siege [options]
+
+-c 100 指定并发数 100
+-r 10 指定测试次数 10
+-f urls.txt 指定url文件
+-i internet系统，随机发送url
+-b 请求无需等待 -d NUM 延迟多少秒
+-t 5 持续测试5分钟 -t3600S, -t60M, -t1H
+-v 输出详细信息
+-l 记录压测日志信息到指定文件
+```
+
+结果说明
+```bash
+Transaction: 总测试次数
+Availability: 成功次数百分比
+Elapsed Time: 总共耗时多少秒
+Data Transferred: 总共数据传输
+Response Time: 平均响应耗时
+Transaction Rate: 平均每秒处理请求数
+Throughput: 吞吐率
+Concurrency: 最高并发
+Successful Transactions: 成功的请求数
+Failed Transactions: 失败的请求数
+```
+
+## 问题
+问：使用`cluster`模块后，`RPS`、`QPS`等参数没有明显变化？
+```
+答：启动多个进程只是为了充分将CPU资源利用起来，而不是为了解决并发问题。
+```
+
 ## 参考
+- [NodeJS充分利用多核CPU以及它的稳定性](https://segmentfault.com/a/1190000007343993)
 - [node.js cluster多进程、负载均衡和平滑重启](https://www.cnblogs.com/kenkofox/p/5431643.html)
