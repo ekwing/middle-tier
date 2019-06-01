@@ -1,0 +1,20 @@
+{
+  "name": "middle-tier",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ekwing/middle-tier",
+  "author": "L-Chris <563303226@qq.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon ./examples/index.js",
+    "prod": "node ./examples/http.js",
+    "test": "node ./tests/index.js"
+  },
+  "dependencies": {
+    "koa": "^2.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1",
+    "siege": "^0.2.0"
+  }
+}
