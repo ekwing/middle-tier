@@ -18,8 +18,6 @@ if (cluster.isMaster) {
   console.log(`[workder] start worker ... ${cluster.worker.id}`)
 
   http.createServer((req, res) => {
-    // console.log(`worker-${cluster.worker.id}`)
-    // res.end(`worker-${cluster.worker.id}, PID:${process.pid}`)
     res.end('Hello World!')
   }).listen(3000)
 }
