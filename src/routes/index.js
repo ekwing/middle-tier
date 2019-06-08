@@ -1,5 +1,7 @@
 const router = require('koa-router')()
 
-router.use('/')
+router.get('/', (ctx, next) => {
+  ctx.body = 'Hello Ekwing!'
+})
 
 module.exports = router
